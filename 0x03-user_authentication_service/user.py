@@ -4,8 +4,9 @@ User table class
 """
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
-Base = declarative_base()
+from typing import Any
 
+Base: Any = declarative_base()
 
 class User(Base):
     """
