@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
+# type: ignore
 """
 User table class
 """
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+
 from typing import Any
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
 
 Base: Any = declarative_base()
+
 
 class User(Base):
     """
