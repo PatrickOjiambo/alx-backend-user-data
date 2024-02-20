@@ -1,4 +1,4 @@
-# type: ignore
+#!/usr/bin/env python3
 """DB module
 """
 import logging
