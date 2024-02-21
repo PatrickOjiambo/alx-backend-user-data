@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.get("/", strict_slashes=False)
-def get():
+def index():
     """
     Simple get route
     """
