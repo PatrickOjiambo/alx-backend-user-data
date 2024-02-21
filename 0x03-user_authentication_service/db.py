@@ -2,7 +2,7 @@
 """DB module
 """
 import logging
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
@@ -43,7 +43,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: Dict[str, str]) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """
         Find user by
         """
@@ -55,3 +55,16 @@ class DB:
         except InvalidRequestError:
             raise InvalidRequestError()
         return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        Method to update user
+        """
+        user = self.find_user_by(id=user_id)
+        try:
+            for key, value in kwargs.items():
+                setattr(user, key, value)
+            self._session.commit()
+
+        except ValueError:
+            raise ValueError()
