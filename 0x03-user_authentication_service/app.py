@@ -69,15 +69,12 @@ def profile():
     """
     profile endpoint
     """
-    session_id = request.cookies.get('session_id')
-    try:
-        user_email = AUTH.get_user_from_session_id(session_id).email
-        if user_email is not None:
-            return jsonify({"email": user_email}), 200
-        else:
-            abort(403)
-    except Exception as e:
+    cookie = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(cookie)
+    if user is None:
         abort(403)
+    else:
+        return jsonify({"email": user.email}), 200
 
 
 if __name__ == "__main__":
