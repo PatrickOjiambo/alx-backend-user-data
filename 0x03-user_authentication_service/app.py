@@ -73,8 +73,7 @@ def profile():
     try:
         user_email = AUTH.get_user_from_session_id(session_id).email
         if user_email is not None:
-            response = make_response(jsonify({"email": user_email}), 200)
-            return response
+            return jsonify({"email": user_email}), 200
         else:
             abort(403)
     except Exception as e:
