@@ -77,7 +77,7 @@ def profile():
         return jsonify({"email": user.email}), 200
 
 
-@app.route("/reset_password", methods=["POST"], strict_slashes=False)
+@app.route("/reset_password", methods=["POST"])
 def get_reset_password_token():
     """
     endpoint to reset the password
@@ -86,6 +86,8 @@ def get_reset_password_token():
     is_registered = AUTH.check_if_email_exists(data["email"])
     if is_registered is True:
         reset_token = AUTH.get_reset_password_token(data["email"])
+        if not reset_token:
+            abort(403)
         return jsonify({"email": data["email"], "reset_token": reset_token}), 200
     else:
         abort(403)
