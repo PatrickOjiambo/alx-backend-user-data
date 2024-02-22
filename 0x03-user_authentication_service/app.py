@@ -61,7 +61,9 @@ def logout():
         AUTH.destroy_session(user_id)
         return redirect("/")
     else:
-        abort(403)
+        resp = make_response()
+        resp.status_code = 403
+        return resp
 
 
 if __name__ == "__main__":
