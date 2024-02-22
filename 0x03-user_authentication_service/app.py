@@ -42,9 +42,7 @@ def login():
             session_id = AUTH.create_session(data["email"])
             resp = make_response(
                 jsonify({"email": data["email"], "message": "logged in"}))
-            print(resp)
             resp.set_cookie("session_id", session_id)
-            print(resp)
             return resp
         elif is_logged_in is False:
             abort(401)
