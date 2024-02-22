@@ -2,7 +2,7 @@
 """
 File for the flask APP
 """
-from flask import Flask, jsonify, request, make_response, abort, Response
+from flask import Flask, jsonify, redirect, request, make_response, abort, Response
 from auth import Auth
 app = Flask(__name__)
 
@@ -48,6 +48,20 @@ def login():
             abort(401)
     except Exception as e:
         abort(401)
+
+
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+def logout():
+    """
+    Endpoint for logging the user out
+    """
+    session_id = request.cookies.get('session_id')
+    user_id = AUTH.get_user_from_session_id(session_id).id
+    if user_id is not None:
+        AUTH.destroy_session(user_id)
+        return redirect("/")
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
