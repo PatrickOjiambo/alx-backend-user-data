@@ -108,3 +108,15 @@ class Auth:
             return False
         else:
             return True
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """
+        This method id used to update the password
+        """
+        user = self._db.find_user_by(reset_token=reset_token)
+        if user is None:
+            raise ValueError
+        else:
+            hashed_password = _hash_password(password)
+            self._db.update_user(user.id, reset_token=None,
+                                 hashed_password=hashed_password)
